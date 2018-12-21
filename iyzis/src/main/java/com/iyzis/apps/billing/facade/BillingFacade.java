@@ -27,9 +27,10 @@ public class BillingFacade extends AbstractFacade<BillingDTO, Billing> {
     }
 
     @Override
-    public void create(BillingDTO dto) {
+    public BillingDTO create(BillingDTO dto) {
         Billing billing = billingModelManager.convert(dto);
-        billingService.create(billing);
+        billing = billingService.create(billing);
+        return  this.billingModelManager.convert(billing);
     }
 
     @Override

@@ -7,7 +7,6 @@ import com.iyzis.apps.payment.api.model.*;
 import com.iyzis.apps.payment.config.IyzicoConfig;
 import com.iyzis.core.utils.DateUtil;
 
-import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Date;
 import java.util.UUID;
@@ -46,14 +45,15 @@ public class IyzicoVendorAdapter extends Payment implements IVendorAdapter {
     private CreatePaymentRequest createPaymentRequest(PaymentRequestDTO paymentRequestDTO) {
         CreatePaymentRequest request = new CreatePaymentRequest();
 
-        PaymentCard paymentCard = getPaymentCard(paymentRequestDTO.getPaymentCardDTO());
-        Address address = getBillingAddress(paymentRequestDTO.getPaymentBillingAddressDTO());
-        Buyer buyer = getBuyer(paymentRequestDTO.getPaymentCustomerDTO(), paymentRequestDTO.getPaymentBillingAddressDTO());
-        BasketItem basketItem = getBusketItem(paymentRequestDTO.getPaymentBasketItemDTO());
+        PaymentCard paymentCard = getPaymentCard(paymentRequestDTO.getPaymentCard());
+        Address address = getBillingAddress(paymentRequestDTO.getPaymentBillingAddress());
+        Buyer buyer = getBuyer(paymentRequestDTO.getPaymentCustomer(), paymentRequestDTO.getPaymentBillingAddress());
+        BasketItem basketItem = getBusketItem(paymentRequestDTO.getPaymentBasketItem());
 
         request.setBasketItems(Collections.singletonList(basketItem));
         request.setPaymentCard(paymentCard);
         request.setBillingAddress(address);
+        request.setShippingAddress(address);
         request.setBuyer(buyer);
         request.setLocale(Locale.EN.getValue());
         request.setConversationId(UUID.randomUUID().toString());
@@ -61,8 +61,8 @@ public class IyzicoVendorAdapter extends Payment implements IVendorAdapter {
         request.setBasketId(UUID.randomUUID().toString());
         request.setPaymentChannel(PaymentChannel.WEB.name());
         request.setPaymentGroup(PaymentGroup.SUBSCRIPTION.name());
-        request.setPrice(BigDecimal.valueOf(paymentRequestDTO.getAmount()));
-        request.setPaidPrice(BigDecimal.valueOf(paymentRequestDTO.getAmount()));
+        request.setPrice(paymentRequestDTO.getPaymentBasketItem().getPrice());
+        request.setPaidPrice(paymentRequestDTO.getPaymentBasketItem().getPrice());
         return request;
     }
 

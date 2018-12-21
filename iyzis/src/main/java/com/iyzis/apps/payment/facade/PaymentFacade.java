@@ -65,7 +65,7 @@ public class PaymentFacade extends AbstractFacade<PaymentDTO, Payment> {
         paymentResponse.setStatus(Boolean.FALSE);
 
         IVendorAdapter vendorAdapter = PaymentVendorFactory.create(request.getVendor());
-        final PaymentResultDTO resultDTO = vendorAdapter.makePayment(request.getPaymentRequestDTO());
+        final PaymentResultDTO resultDTO = vendorAdapter.makePayment(request.getPaymentRequest());
 
         if ("failure".equalsIgnoreCase(resultDTO.getStatus())) {
             throw new Exception("Error code: " + resultDTO.getErrorCode() + " Error Message: " + resultDTO.getErrorMessage());
@@ -74,8 +74,8 @@ public class PaymentFacade extends AbstractFacade<PaymentDTO, Payment> {
 
         // create subscription
         SubscriptionDTO subscriptionDTO = SubscriptionDTOBuilder.newInstance()
-                .customer(request.getPaymentRequestDTO().getPaymentCustomerDTO().getId())
-                .serviceId(request.getPaymentRequestDTO().getPaymentBasketItemDTO().getId())
+                .customer(request.getPaymentRequest().getPaymentCustomer().getId())
+                .serviceId(request.getPaymentRequest().getPaymentBasketItem().getId())
                 .serviceType(request.getServiceType())
                 .period(request.getPeriod())
                 .startDate(DateUtil.getNow())
@@ -86,7 +86,7 @@ public class PaymentFacade extends AbstractFacade<PaymentDTO, Payment> {
         PaymentDTO paymentDTO = PaymentDTOBuilder.newInstance()
                 .subscription(subscriptionDTO.getId())
                 .vendor(request.getVendor())
-                .amount(request.getPaymentRequestDTO().getPaymentBasketItemDTO().getPrice().doubleValue())
+                .amount(request.getPaymentRequest().getPaymentBasketItem().getPrice().doubleValue())
                 .build();
         paymentDTO = this.create(paymentDTO);
 
@@ -94,12 +94,12 @@ public class PaymentFacade extends AbstractFacade<PaymentDTO, Payment> {
         BillingDTO billingDTO = BillingDTOBuilder.newInstance()
                 .payment(paymentDTO.getId())
                 .subscription(paymentDTO.getSubscriptionId())
-                .name(request.getPaymentRequestDTO().getPaymentCustomerDTO().getName())
-                .lastName(request.getPaymentRequestDTO().getPaymentCustomerDTO().getSurname())
-                .country(request.getPaymentRequestDTO().getPaymentBillingAddressDTO().getCountry())
-                .city(request.getPaymentRequestDTO().getPaymentBillingAddressDTO().getCity())
-                .address(request.getPaymentRequestDTO().getPaymentBillingAddressDTO().getAddress())
-                .zipCode(request.getPaymentRequestDTO().getPaymentBillingAddressDTO().getZipCode())
+                .name(request.getPaymentRequest().getPaymentCustomer().getName())
+                .lastName(request.getPaymentRequest().getPaymentCustomer().getSurname())
+                .country(request.getPaymentRequest().getPaymentBillingAddress().getCountry())
+                .city(request.getPaymentRequest().getPaymentBillingAddress().getCity())
+                .address(request.getPaymentRequest().getPaymentBillingAddress().getAddress())
+                .zipCode(request.getPaymentRequest().getPaymentBillingAddress().getZipCode())
                 .build();
         this.billingFacade.create(billingDTO);
 

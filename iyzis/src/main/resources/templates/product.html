@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorator="default"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <title>Iyzis-Products</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+
+    <div class="row">
+
+        <div class="form-group">
+            <label for="products"><h1>Products</h1></label>
+
+            <div id="products" class="card-deck">
+                <div  class="card border-info mb-3" style="max-width: 18rem;" th:each="product: ${products}"  >
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${product.name}"/>
+                        <p class="card-text" th:text="${product.description}"/>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" th:text="${product.price} + '$'"/>
+                    </ul>
+                    <div class="card-footer">
+                        <small class="text-muted">Created Date:</small>
+                        <small class="text-muted" th:text="${#dates.format(product.createdDate, 'dd-MMM-yyyy HH:mm')}"/>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+
+</html>

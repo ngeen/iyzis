@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorator="default"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <title>Hello world page</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+
+
+    <div class="card-deck">
+
+
+        <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+            <div class="card-header" style="text-align: center">CUSTOMERS</div>
+            <div class="card-body">
+                <h6 class="card-title">Total Customers</h6>
+                <h1><p class="card-text" style="text-align: center" th:text="${customerCount}"/></h1>
+            </div>
+            <div class="card-footer" ><a class="nav-link text-primary" href="/customers"> <small>Details</small></a></div>
+
+        </div>
+        <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+            <div class="card-header" style="text-align: center">SUBSCRIPTIONS</div>
+            <div class="card-body">
+                <h6 class="card-title">Total Subscriptions</h6>
+                <h1><p class="card-text" style="text-align: center" th:text="${subscriptionCount}"/></h1>
+            </div>
+            <div class="card-footer" ><a class="nav-link text-primary" href="/subscriptions"> <small>Details</small></a></div>
+
+        </div>
+        <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+            <div class="card-header" style="text-align: center">PAYMENTS</div>
+            <div class="card-body">
+                <h6 class="card-title">Total Payments</h6>
+                <h1><p class="card-text" style="text-align: center" th:text="${paymentCount}"/></h1>
+            </div>
+            <div class="card-footer" ><a class="nav-link text-primary" href="/payments"> <small>Details</small></a></div>
+
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+
+</html>

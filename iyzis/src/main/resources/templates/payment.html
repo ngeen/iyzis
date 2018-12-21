@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorator="default"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      >
+<head>
+    <title>Iyzis-Payments</title>
+</head>
+<body>
+    <div layout:fragment="content">
+
+        <h1>Payments</h1>
+        <hr/>
+        <br/>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Subscription(Id)</th>
+                <th scope="col">Vendor</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Created Date</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="payment : ${payments}" >
+                <th scope="row" th:text="${payment.id}"/>
+                <td th:text="${payment.subscriptionId}" />
+                <td th:text="${payment.vendor}" />
+                <td th:text="${payment.amount} + '$'" />
+                <td th:text="${#dates.format(payment.createdDate, 'dd-MMM-yyyy HH:mm')}"/>
+
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+
+</html>

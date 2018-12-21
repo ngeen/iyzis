@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorator="default"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      >
+<head>
+    <title>Iyzis-Customers</title>
+</head>
+<body>
+    <div layout:fragment="content">
+
+        <h1>Customers</h1>
+        <hr/>
+        <br/>
+
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Surname</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Company</th>
+                <th scope="col">Company Size</th>
+                <th scope="col">Country</th>
+                <th scope="col">Created Date</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="customer : ${customers}" >
+                <th scope="row" th:text="${customer.id}"/>
+                <td th:text="${customer.name}" />
+                <td th:text="${customer.surname}" />
+                <td th:text="${customer.email}" />
+                <td th:text="${customer.phoneNumber}" />
+                <td th:text="${customer.companyName}" />
+                <td th:text="${customer.companySize}" />
+                <td th:text="${customer.country}" />
+                <td th:text="${#dates.format(customer.createdDate, 'dd-MMM-yyyy HH:mm')}" />
+
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+
+</html>

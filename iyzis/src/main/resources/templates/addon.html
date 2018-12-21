@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorator="default"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <title>Iyzis-Addons</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+
+    <div class="row">
+
+        <div class="form-group">
+            <label for="addons"><h1>Addons</h1></label>
+
+            <div id="addons" class="card-deck">
+                <div  class="card border-warning mb-3" style="max-width: 18rem;" th:each="addon: ${addons}"  >
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${addon.name}"/>
+                        <p class="card-text" th:text="${addon.description}"/>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" th:text="${addon.price} + '$'"/>
+                    </ul>
+                    <div class="card-footer">
+                        <small class="text-muted">Created Date:</small>
+                        <small class="text-muted" th:text="${#dates.format(addon.createdDate, 'dd-MMM-yyyy HH:mm')}"/>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+
+</html>

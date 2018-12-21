@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorator="default"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      >
+<head>
+    <title>Iyzis-Subscriptions</title>
+</head>
+<body>
+    <div layout:fragment="content">
+
+        <h1>Subscriptions</h1>
+        <hr/>
+        <br/>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Customer(Id)</th>
+                <th scope="col">Service (Id)</th>
+                <th scope="col">Service Type</th>
+                <th scope="col">Period</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Created Date</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="subscription : ${subscriptions}" >
+                <th scope="row" th:text="${subscription.id}"/>
+                <td th:text="${subscription.customerId}" />
+                <td th:text="${subscription.serviceId}" />
+                <td th:text="${subscription.serviceType}" />
+                <td th:text="${subscription.period}" />
+                <td th:text="${#dates.format(subscription.startDate, 'dd-MMM-yyyy HH:mm')}"/>
+                <td th:text="${#dates.format(subscription.endDate, 'dd-MMM-yyyy HH:mm')}"/>
+                <td th:text="${#dates.format(subscription.createdDate, 'dd-MMM-yyyy HH:mm')}"/>
+
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+
+</html>

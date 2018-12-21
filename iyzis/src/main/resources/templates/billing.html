@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorator="default"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      >
+<head>
+    <title>Iyzis-Billings</title>
+</head>
+<body>
+    <div layout:fragment="content">
+
+        <h1>Billings</h1>
+        <hr/>
+        <br/>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Subscription(Id)</th>
+                <th scope="col">Payment(Id)</th>
+                <th scope="col">Billing Customer Name</th>
+                <th scope="col">Billing Customer Lastname</th>
+                <th scope="col">Created Date</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="billing : ${billings}" >
+                <th scope="row" th:text="${billing.id}"/>
+                <td th:text="${billing.subscriptionId}" />
+                <td th:text="${billing.paymentId}" />
+                <td th:text="${billing.name}" />
+                <td th:text="${billing.lastName}" />
+                <td th:text="${#dates.format(billing.createdDate, 'dd-MMM-yyyy HH:mm')}"/>
+
+
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+
+</html>
